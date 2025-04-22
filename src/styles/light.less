@@ -1,0 +1,34 @@
+.spot-light {
+  &__inner {
+    background: #000;
+    height: 100%;
+    width: 100%;
+  }
+
+  .spot-light__ph__main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0.3;
+    width: 100%;
+  }
+
+  .spot-light__ph__main span {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 834px) {
+    .spot-light__ph__main span {
+      background: url('/ph_bg_nrw.jpg') center/cover;
+    }
+  }
+
+  @media (min-width: 835px) {
+    .spot-light__ph__main span {
+      background: url('/ph_bg.jpg') center/cover;
+    }
+  }
+}
