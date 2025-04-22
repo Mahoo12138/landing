@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%- title %></title>
-  </head>
-  <body>
-    <div id="app">
-      <main>Hello World</main>
-      <footer>
-        <div class="icp">
-          © <%= copyrightYear %> 
-          <a href="<%= authorUrl %>"><%= authorName %></a>
-          <a href="<%= icpUrl %>" target="_blank"><%= icpNumber %></a>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%- title %></title>
+</head>
+
+<body>
+  <div id="app">
+    <main>
+      <section class="spot-light">
+        <div class="spot-light__inner">
+          <div class="spot-light__ph__main"><span></span></div>
+          <div class="spot-light__ph__top"><span></span></div>
+          <div class="spot-light__ph__shadow"></div>
+
+          <div class="spot-light__gradient spot-light__obj"></div>
+
+          <div class="spot-light__frame"></div>
+
+          <div class="spot-light__curtain">
+            <div class="spot-light__curtain__item -top"></div>
+            <div class="spot-light__curtain__item -bottom"></div>
+          </div>
         </div>
-      </footer>
-    </div>
-  </body>
+      </section>
+    </main>
+    <footer>
+      <div class="icp">
+        © <%= copyrightYear %>
+          <a href="<%= authorUrl %>">
+            <%= authorName %>
+          </a>
+          <a href="<%= icpUrl %>" target="_blank">
+            <%= icpNumber %>
+          </a>
+      </div>
+    </footer>
+  </div>
+</body>
+
 </html>

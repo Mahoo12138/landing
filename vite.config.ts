@@ -7,6 +7,7 @@ export default defineConfig({
   build: {
     outDir: "../dist",
   },
+  publicDir: "../public",
   plugins: [
     viteSingleFile(),
     createHtmlPlugin({
