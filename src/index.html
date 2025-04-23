@@ -1,3 +1,11 @@
+<!--
+ * @Author: Mahoo12138 Mahoo12138@qq.com
+ * @Date: 2025-04-22 23:19:16
+ * @LastEditors: Mahoo12138 Mahoo12138@qq.com
+ * @LastEditTime: 2025-04-23 19:20:45
+ * @FilePath: \landing\src\index.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,9 +71,18 @@
       const render = () => {
         rafId = null;
 
-        // 反转方向：用 100 减去百分比
-        const x = 100 - (lastX / window.innerWidth) * 100;
-        const y = 100 - (lastY / window.innerHeight) * 100;
+        // 计算鼠标位置相对于视窗中心的偏移
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        // 计算鼠标与中心点的距离，并限制最大偏移量
+        const maxOffset = 25; // 最大偏移百分比
+        const dx = (lastX - centerX) / centerX; // 归一化到 -1 到 1 的范围
+        const dy = (lastY - centerY) / centerY;
+
+        // 将偏移量转换为百分比，注意这里用 100 减去结果使方向正确
+        const x = 100 - (50 + (dx * maxOffset));
+        const y = 100 - (50 + (dy * maxOffset));
 
         // 使用 transform 来优化性能
         spotlightShadow.style.setProperty('--mouse-x', `${x}%`);
