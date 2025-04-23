@@ -40,6 +40,41 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    // src/scripts/spotlight.js
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const spotlightShadow = document.querySelector('.spot-light__ph__shadow');
+      let rafId = null;
+      let lastX = 0;
+      let lastY = 0;
+
+      // 使用节流来控制更新频率
+      const updatePosition = (e) => {
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        if (!rafId) {
+          rafId = requestAnimationFrame(render);
+        }
+      };
+
+      const render = () => {
+        rafId = null;
+
+        // 反转方向：用 100 减去百分比
+        const x = 100 - (lastX / window.innerWidth) * 100;
+        const y = 100 - (lastY / window.innerHeight) * 100;
+
+        // 使用 transform 来优化性能
+        spotlightShadow.style.setProperty('--mouse-x', `${x}%`);
+        spotlightShadow.style.setProperty('--mouse-y', `${y}%`);
+      };
+
+      document.addEventListener('mousemove', updatePosition, { passive: true });
+    });
+  </script>
 </body>
 
 </html>
