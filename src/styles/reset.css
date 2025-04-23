@@ -1,3 +1,9 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
 a,
 abbr,
 acronym,
@@ -130,4 +136,14 @@ a {
 
 a img {
     border: none;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: initial;
+    margin: 0;
+    outline: none;
+    padding: 0;
 }

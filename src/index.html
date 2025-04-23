@@ -1,11 +1,3 @@
-<!--
- * @Author: Mahoo12138 Mahoo12138@qq.com
- * @Date: 2025-04-22 23:19:16
- * @LastEditors: Mahoo12138 Mahoo12138@qq.com
- * @LastEditTime: 2025-04-23 19:20:45
- * @FilePath: \landing\src\index.html
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +22,57 @@
           <div class="spot-light__frame"></div>
 
           <div class="spot-light__curtain">
-            <div class="spot-light__curtain__item -top"></div>
-            <div class="spot-light__curtain__item -bottom"></div>
+            <div class="spot-light__curtain-item -top"></div>
+            <div class="spot-light__curtain-item -bottom"></div>
           </div>
+        </div>
+      </section>
+      <section id="main-visual" class="main-visual is-hidden" data-character="compilation">
+        <div class="main-visual__left">
+          <div class="main-visual__bg"></div>
+
+          <div class="main-visual__ph">
+            <div class="main-visual__ph__slide"></div>
+          </div>
+
+          <div class="main-visual__curtain"></div>
+        </div>
+        <div class="main-visual__right">
+          <span class="catch -item1">
+            <picture>
+              <source media="(max-width:834px)" srcset="/omnibus/assets/img/page/top/common/title_1_nrw.svg" />
+              <img src="/omnibus/assets/img/page/top/common/title_1.svg" alt="" onmousedown="return false"
+                oncopy="return false" onselectstart="return false" oncontextmenu="return false" />
+            </picture>
+          </span>
+          <span class="catch -item2">
+            <picture>
+              <source media="(max-width:834px)" srcset="/omnibus/assets/img/page/top/common/title_2_nrw.svg" />
+              <img src="/omnibus/assets/img/page/top/common/title_2.svg" alt="" onmousedown="return false"
+                oncopy="return false" onselectstart="return false" oncontextmenu="return false" />
+            </picture>
+          </span>
+          <span class="catch -item3">
+            <picture>
+              <source media="(max-width:834px)" srcset="/omnibus/assets/img/page/top/common/title_3_nrw.svg" />
+              <img src="/omnibus/assets/img/page/top/common/title_3.svg" alt="" onmousedown="return false"
+                oncopy="return false" onselectstart="return false" oncontextmenu="return false" />
+            </picture>
+          </span>
+        </div>
+        <div class="main-visual__change">
+          <button class="main-visual__change-item" data-character="compilation"
+            data-nextcharacter="compilation2"></button>
+          <button class="main-visual__change-item" data-character="compilation2"
+            data-nextcharacter="compilation3"></button>
+          <button class="main-visual__change-item" data-character="compilation3"
+            data-nextcharacter="compilation4"></button>
+          <button class="main-visual__change-item" data-character="compilation4"
+            data-nextcharacter="compilation"></button>
+          <button class="main-visual__change-item" data-character="compilation5"
+            data-nextcharacter="compilation6"></button>
+          <button class="main-visual__change-item" data-character="compilation6"
+            data-nextcharacter="compilation"></button>
         </div>
       </section>
     </main>
@@ -50,10 +90,18 @@
   </div>
 
   <script>
-    // src/scripts/spotlight.js
+    document.addEventListener("DOMContentLoaded", () => {
+      initSpotlight();
+      initMainVisual();
+      initSectionTransition();
+    });
+  </script>
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const spotlightShadow = document.querySelector('.spot-light__ph__shadow');
+  <script>
+    function initSpotlight() {
+      const spotlightShadow = document.querySelector(
+        ".spot-light__ph__shadow"
+      );
       let rafId = null;
       let lastX = 0;
       let lastY = 0;
@@ -81,16 +129,60 @@
         const dy = (lastY - centerY) / centerY;
 
         // 将偏移量转换为百分比，注意这里用 100 减去结果使方向正确
-        const x = 100 - (50 + (dx * maxOffset));
-        const y = 100 - (50 + (dy * maxOffset));
+        const x = 100 - (50 + dx * maxOffset);
+        const y = 100 - (50 + dy * maxOffset);
 
         // 使用 transform 来优化性能
-        spotlightShadow.style.setProperty('--mouse-x', `${x}%`);
-        spotlightShadow.style.setProperty('--mouse-y', `${y}%`);
+        spotlightShadow.style.setProperty("--mouse-x", `${x}%`);
+        spotlightShadow.style.setProperty("--mouse-y", `${y}%`);
       };
 
-      document.addEventListener('mousemove', updatePosition, { passive: true });
-    });
+      document.addEventListener("mousemove", updatePosition, {
+        passive: true,
+      });
+    }
+  </script>
+  <script>
+    function initMainVisual() {
+      const container = document.getElementById("main-visual");
+      const curtain = document.querySelector(".main-visual__curtain");
+      const buttons = document.querySelectorAll(".main-visual__change-item");
+
+      buttons.forEach((item) => {
+        item.addEventListener("click", () => {
+          const character = item.getAttribute("data-character");
+          container.setAttribute("data-character", character);
+          curtain.classList.add("in-animation");
+          buttons.forEach((btn) => btn.classList.remove("-active"));
+          item.classList.add("-active");
+        });
+      });
+      curtain.addEventListener("animationend", () => {
+        curtain.classList.remove("in-animation");
+      });
+    }
+  </script>
+  <script>
+    function initSectionTransition() {
+      const spotLight = document.querySelector('.spot-light');
+      const mainVisual = document.querySelector('.main-visual');
+
+
+      spotLight.addEventListener('click', () => {
+        // 先添加过渡效果
+        spotLight.style.opacity = '0';
+
+        // 等待过渡完成后再隐藏/显示元素
+        setTimeout(() => {
+          spotLight.classList.add('is-hidden');
+
+          // 强制重排后再添加透明度过渡
+          setTimeout(() => {
+            mainVisual.classList.remove('is-hidden');
+          }, 50);
+        }, 500);
+      });
+    }
   </script>
 </body>
 
